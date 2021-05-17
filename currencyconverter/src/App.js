@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme=>({
 
 function App() {
   const classes=useStyles();
-  const [money1, setMoney1] = useState();
+  const [money1, setMoney1] = useState("");
   const [currency1, setCurrency1] = useState("");
   const [currency2, setCurrency2] = useState("");
   const [result, setResult] = useState();
@@ -70,13 +70,15 @@ function App() {
         variant="outlined"
         value={money1}
         onChange={handleChangeMoneyValue1}
+        inputProps={{ "data-testid": "money1" }}
         />
           <Select
             value={currency1}
             onChange={handleChange1}
+            data-testid="currency1"
           >
-            {data.map(key=>
-        <MenuItem value={key.currency}>{key.currency}</MenuItem>
+            {data.map((key,index)=>
+        <MenuItem key={index} value={key.currency}>{key.currency}</MenuItem>
       )}
           </Select>
         </FormControl>
@@ -84,6 +86,7 @@ function App() {
         <TextField
         variant="outlined"
         value={result}
+        inputProps={{ "data-testid": "money2" }}
         InputProps={{
           readOnly: true,
         }}
@@ -91,15 +94,17 @@ function App() {
           <Select
             value={currency2}
             onChange={handleChange2}
+            data-testid="currency2"
           >
-            {data.map(key=>
-        <MenuItem value={key.currency}>{key.currency}</MenuItem>
+            {data.map((key,index)=>
+        <MenuItem key={index} value={key.currency}>{key.currency}</MenuItem>
       )}
           </Select>
         </FormControl>
       <Button variant="contained" 
       color="primary" 
       style={{width:"284px"}}
+      data-testid="convert"
       onClick={convertButtonClick}
       disabled={_.isEmpty(money1)||_.isEmpty(currency2)||_.isEmpty(currency1)}
       >Convert
